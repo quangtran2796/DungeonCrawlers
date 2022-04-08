@@ -1,6 +1,22 @@
 #include <iostream>
-
+#include <vector>
+#include "GameEngine.h"
+using namespace std;
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    vector<string> data{
+        "##########",
+        "####.....#",
+        "###......#",
+        "##.......#",
+        "#........#",
+        "#........#",
+        "#........#",
+        "#........#",
+        "#........#",
+        "##########",
+    };
+
+    GameEngine ge(10,10,data);
+    ge.run();
     return 0;
 }
