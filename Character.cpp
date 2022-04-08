@@ -3,3 +3,23 @@
 //
 
 #include "Character.h"
+#include "iostream"
+
+char Character::getCharacter() {
+    return character;
+}
+
+Character::Character(char c) {
+    character = c;
+}
+
+int Character::move() {
+    char direction;
+    std::cout << "Type your next move direction 1-9: ";
+    std::cin >> direction;
+    return direction - '0';
+}
+
+Character::~Character() {
+
+}

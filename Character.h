@@ -7,6 +7,13 @@
 
 
 class Character {
+private:
+    char character;
+public:
+    Character(char c);
+    ~Character();
+    char getCharacter();
+    int move();
 
 };
 
