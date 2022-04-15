@@ -4,6 +4,10 @@
 
 #include "DungeonMap.h"
 #include "Tile.h"
+#include "Wall.h"
+#include "Floor.h"
+#include "Switch.h"
+#include "Door.h"
 #include <iostream>
 
 DungeonMap::DungeonMap(int height, int width) : height(height), width(width) {
@@ -19,10 +23,26 @@ DungeonMap::DungeonMap(int height, int width, const std::vector<std::string> &da
     for(int i = 0; i < height; i++){
         gameWorld[i] = new Tile*[width];
         for(int j = 0; j < width; j++){
-            if(data[i][j]=='.')
-                gameWorld[i][j] = new Tile(Tile::Floor);
-            else
-                gameWorld[i][j] = new Tile(Tile::Wall);
+            switch (data[i][j]) {
+                case '.':
+                    gameWorld[i][j] = new Floor('.');
+                    break;
+                case '#':
+                    gameWorld[i][j] = new Wall('#');
+                    break;
+                case '?':
+                    gameWorld[i][j] = new Switch('?');
+                    break;
+                case'!':
+                    gameWorld[i][j] = new Switch('!');
+                    break;
+                case'X':
+                    gameWorld[i][j] = new Door('X');
+                    break;
+                case'/':
+                    gameWorld[i][j] = new Door('/');
+                    break;
+            }
         }
     }
 }
@@ -61,7 +81,7 @@ DungeonMap::Position DungeonMap::findCharacter(Character *c) {
     DungeonMap::Position returnPosition = {.row=0, .column=0};
     for(int i = 0; i < height; i++)
         for(int j = 0; j < width; j++){
-            if(gameWorld[i][j]->getCharacter() == c) {
+            if(gameWorld[i][j]->getCharacterPointer() == c) {
                 returnPosition.row=i;
                 returnPosition.column=j;
             }
@@ -73,14 +93,10 @@ DungeonMap::Position DungeonMap::findCharacter(Character *c) {
 void DungeonMap::print() {
     for(int i = 0; i < height ; i++){
         for(int j = 0; j < width; j++){
-            if(gameWorld[i][j]->getKachelTyp() == Tile::Floor) {
-                if(gameWorld[i][j]->hasCharacter())
-                    std::cout << gameWorld[i][j]->getCharacter()->getCharacter();
-
-                std::cout << '.';
-            }
+            if(gameWorld[i][j]->getCharacterPointer() != nullptr)
+                std::cout << gameWorld[i][j]->getCharacterPointer()->getCharacter();
             else
-                std::cout << '#';
+                std::cout << gameWorld[i][j]->getDisplaySymbol();
         }
         std::cout << std::endl;
     }

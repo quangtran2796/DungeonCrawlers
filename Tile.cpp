@@ -5,42 +5,33 @@
 #include "Tile.h"
 #include "Character.h"
 
-Tile::Tile(Tile::KachelTypen initKachelTyp) {
-    kachelTyp = initKachelTyp;
-    character = nullptr;
-
-}
-
-Tile::KachelTypen Tile::getKachelTyp() {
-    return kachelTyp;
-}
-
-Character *Tile::getCharacter() {
-    return character;
+Character *Tile::getCharacterPointer(){
+    return m_character;
 }
 
 void Tile::setCharacter(Character *newCharacter) {
-    character = newCharacter;
+    m_character = newCharacter;
 }
 
 bool Tile::hasCharacter() {
-    if(character != nullptr)
+    if(getCharacterPointer() != nullptr)
         return true;
     else
         return false;
 }
 
-void Tile::onLeave(Tile *toTile) {
-    if(this->hasCharacter() && toTile->getKachelTyp() == Tile::Floor && !toTile->hasCharacter()){
-        Character* tmpCharacter = character;
-        character = nullptr;
-        toTile->onEnter(tmpCharacter, this);
-    }
+
+
+void Tile::setDisplaySymbol(char s) {
+    m_displaySymbol = s;
 }
 
-void Tile::onEnter(Character *c, Tile *fromTile) {
-    if(!fromTile->hasCharacter())
-        character = c;
+char Tile::getDisplaySymbol() {
+    return m_displaySymbol;
+}
+
+Tile::Tile() {
+    m_character = nullptr;
 }
 
 Tile::~Tile() {

@@ -3,11 +3,11 @@
 #include "GameEngine.h"
 using namespace std;
 int main() {
-    vector<string> data{
+    vector<string> map{
         "##########",
         "####.....#",
         "###......#",
-        "##.......#",
+        "##########",
         "#........#",
         "#........#",
         "#........#",
@@ -16,7 +16,11 @@ int main() {
         "##########",
     };
 
-    GameEngine ge(10,10,data);
+    vector<string> switchDoor{
+        "3 6 D 2 9 S"
+    };
+
+    GameEngine ge(10,10,1,map, switchDoor);
     ge.run();
     return 0;
 }

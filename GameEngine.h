@@ -14,7 +14,7 @@ private:
 
     DungeonMap::Position nextPlayerPosition(int direction, DungeonMap::Position currentPosition);
 public:
-    GameEngine(int height, int width, const std::vector<std::string>& data);
+    GameEngine(int height, int width, int numDependence, const std::vector<std::string>& data, std::vector<std::string> &switchDoor);
     ~GameEngine();
 
     bool finished();

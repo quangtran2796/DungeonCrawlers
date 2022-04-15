@@ -10,27 +10,21 @@
 // Ask public or private enum, struct
 
 class Tile {
-public:
-    enum KachelTypen{
-        Floor,
-        Wall
-    };
-
 private:
-    KachelTypen kachelTyp;
-    Character *character;
-    
+    Character *m_character;
+    char m_displaySymbol;
 public:
-    Tile(KachelTypen initKachelTyp);
+    Tile();
     ~Tile();
 
-    KachelTypen getKachelTyp();
-    Character* getCharacter();
+    Character *getCharacterPointer();
 
     void setCharacter(Character* newCharacter);
     bool hasCharacter();
-    void onLeave(Tile* toTile);
-    void onEnter(Character* c, Tile* fromTile);
+    void setDisplaySymbol(char s);
+    char getDisplaySymbol();
+    virtual void onLeave(Tile* toTile) = 0;
+    virtual void onEnter(Character* c, Tile* fromTile) = 0;
 };
 
 #endif //DUNGEONCRAWLERS_TILE_H

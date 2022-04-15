@@ -4,11 +4,12 @@
 
 #ifndef DUNGEONCRAWLERS_CHARACTER_H
 #define DUNGEONCRAWLERS_CHARACTER_H
-
+#include "Controller.h"
 
 class Character {
 private:
     char character;
+    Controller *m_controller;
 public:
     Character(char c);
     ~Character();

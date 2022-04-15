@@ -4,23 +4,55 @@
 
 #include "GameEngine.h"
 #include "DungeonMap.h"
+#include "Door.h"
+#include "Switch.h"
 #include <iostream>
 
-GameEngine::GameEngine(int height, int width, const std::vector<std::string> &data) : gameWorld(height, width, data) {
+GameEngine::GameEngine(int height, int width, int numDependence, const std::vector<std::string> &data, std::vector<std::string> &switchDoor) : gameWorld(height, width, data) {
     vectorCharacter.push_back(new Character('@'));
 
     // Put the figur at the first floor in the map
     DungeonMap::Position searchFloorPosition = {.row=0,.column=0};
     bool stopSearch = false;
-    for(int i = 0; i < height && !stopSearch; i++)
+    for(int i = 0; i < height && !stopSearch; i++){
         for(int j = 0; j < width && !stopSearch; j++){
             searchFloorPosition.row = i;
             searchFloorPosition.column = j;
-            if(gameWorld.findTile(searchFloorPosition)->getKachelTyp() == Tile::Floor) {
+            if(gameWorld.findTile(searchFloorPosition)->getDisplaySymbol() == '.') {
                 gameWorld.place(searchFloorPosition, vectorCharacter[0]);
                 stopSearch = true;
             }
         }
+    }
+
+    int sdPosition[2];
+    int sdPositionIndex = 0;
+    Door *doorTile;
+    Switch *SwitchTile;
+    for(int i = 0; i < numDependence; i++){
+        for(int j = 0; j < 11; j++){
+            if(switchDoor[i][j] != ' ') {
+                if(switchDoor[i][j] != 'D' && switchDoor[i][j] != 'S'){
+                    sdPosition[sdPositionIndex] = switchDoor[i][j];
+                }
+                else if(switchDoor[i][j] == 'D'){
+                    DungeonMap::Position tmpPosition{sdPosition[0], sdPosition[1]};
+                    Tile* replaceTile = gameWorld.findTile(tmpPosition);
+                    doorTile = new Door('X');
+                    replaceTile = doorTile;
+                    sdPositionIndex = 0;
+                }
+                else if(switchDoor[i][j] == 'S'){
+                    DungeonMap::Position tmpPosition{sdPosition[0], sdPosition[1]};
+                    Tile* replaceTile = dynamic_cast<Switch*>(gameWorld.findTile(tmpPosition));
+                    SwitchTile = new Switch('?');
+                    SwitchTile->setPassiveObject(doorTile);
+                    replaceTile = SwitchTile;
+                    sdPositionIndex = 0;
+                }
+            }
+        }
+    }
 }
 
 void GameEngine::run() {
