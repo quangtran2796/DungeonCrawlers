@@ -30,8 +30,8 @@ public:
     Position findTile(Tile* t);
     Tile* findTile(Position pos);
     Position findCharacter(Character *c);
+    void setTile(Position pos, Tile* t);
     void print();
-
 };
 
 

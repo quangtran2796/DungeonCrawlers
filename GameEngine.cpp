@@ -28,26 +28,25 @@ GameEngine::GameEngine(int height, int width, int numDependence, const std::vect
     int sdPosition[2];
     int sdPositionIndex = 0;
     Door *doorTile;
-    Switch *SwitchTile;
+    Switch *switchTile;
     for(int i = 0; i < numDependence; i++){
         for(int j = 0; j < 11; j++){
             if(switchDoor[i][j] != ' ') {
                 if(switchDoor[i][j] != 'D' && switchDoor[i][j] != 'S'){
-                    sdPosition[sdPositionIndex] = switchDoor[i][j];
+                    sdPosition[sdPositionIndex] = switchDoor[i][j]-'0';
+                    sdPositionIndex++;
                 }
                 else if(switchDoor[i][j] == 'D'){
-                    DungeonMap::Position tmpPosition{sdPosition[0], sdPosition[1]};
-                    Tile* replaceTile = gameWorld.findTile(tmpPosition);
+                    DungeonMap::Position tmpPosition{sdPosition[0]-1, sdPosition[1]-1};
                     doorTile = new Door('X');
-                    replaceTile = doorTile;
+                    gameWorld.setTile(tmpPosition, doorTile);
                     sdPositionIndex = 0;
                 }
                 else if(switchDoor[i][j] == 'S'){
-                    DungeonMap::Position tmpPosition{sdPosition[0], sdPosition[1]};
-                    Tile* replaceTile = dynamic_cast<Switch*>(gameWorld.findTile(tmpPosition));
-                    SwitchTile = new Switch('?');
-                    SwitchTile->setPassiveObject(doorTile);
-                    replaceTile = SwitchTile;
+                    DungeonMap::Position tmpPosition{sdPosition[0]-1, sdPosition[1]-1};
+                    switchTile = new Switch('?');
+                    switchTile->setPassiveObject(doorTile);
+                    gameWorld.setTile(tmpPosition, switchTile);
                     sdPositionIndex = 0;
                 }
             }

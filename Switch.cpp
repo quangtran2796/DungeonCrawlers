@@ -21,7 +21,7 @@ Switch::Switch(char symbol) {
 }
 
 void Switch::onLeave(Tile *toTile) {
-    if(hasCharacter() && toTile->hasCharacter()){
+    if(hasCharacter() && !toTile->hasCharacter()){
         Character* tmpCharacter = getCharacterPointer();
         setCharacter(nullptr);
         toTile->onEnter(tmpCharacter, this);
@@ -32,6 +32,7 @@ void Switch::onEnter(Character *c, Tile *fromTile) {
     if(getDisplaySymbol() == '?'){
         getPassiveObject()->setStatus(true);
         getPassiveObject()->setDisplaySymbol('/');
+        setDisplaySymbol('!');
     }
     setCharacter(c);
 }

@@ -17,7 +17,7 @@ int main() {
     };
 
     vector<string> switchDoor{
-        "3 6 D 2 9 S"
+        "4 6 D 2 9 S"
     };
 
     GameEngine ge(10,10,1,map, switchDoor);
