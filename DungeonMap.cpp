@@ -102,6 +102,11 @@ void DungeonMap::print() {
     }
 }
 
+void DungeonMap::setTile(DungeonMap::Position pos, Tile *t) {
+    gameWorld[pos.row][pos.column] = t;
+}
+
+
 
 
 

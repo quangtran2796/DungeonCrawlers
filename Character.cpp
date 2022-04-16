@@ -17,7 +17,9 @@ int Character::move() {
     char direction;
     std::cout << "Type your next move direction 1-9:";
     std::cin >> direction;
-    m_controller->move();
+    if(m_controller != nullptr)
+        m_controller->move();
+
     return direction - '0';
 }
 

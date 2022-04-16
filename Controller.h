@@ -5,8 +5,8 @@
 #ifndef DUNGEONCRAWLERS_CONTROLLER_H
 #define DUNGEONCRAWLERS_CONTROLLER_H
 
-#include "Character.h"
-
+//#include "Character.h"
+class Character;
 // Ask if this is a better way
 class Controller {
 private:
