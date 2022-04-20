@@ -25,6 +25,7 @@ public:
     char getDisplaySymbol();
     virtual void onLeave(Tile* toTile) = 0;
     virtual void onEnter(Character* c, Tile* fromTile) = 0;
+    virtual bool isTransparent();
 };
 
 #endif //DUNGEONCRAWLERS_TILE_H

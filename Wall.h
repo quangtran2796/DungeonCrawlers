@@ -13,6 +13,7 @@ public:
     ~Wall(){};
     virtual void onLeave(Tile* toTile);
     virtual void onEnter(Character* c, Tile* fromTile);
+    virtual bool isTransparent();
 };
 
 

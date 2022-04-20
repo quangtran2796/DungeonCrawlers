@@ -21,3 +21,8 @@ void Floor::onEnter(Character *c, Tile *fromTile) {
 Floor::Floor(char symbol) {
     setDisplaySymbol(symbol);
 }
+
+void Floor::setItem(Item *i) {
+    m_item = i;
+    setDisplaySymbol('*');
+}

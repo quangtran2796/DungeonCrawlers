@@ -9,7 +9,7 @@
 #include <iostream>
 
 GameEngine::GameEngine(int height, int width, int numDependence, const std::vector<std::string> &data, std::vector<std::string> &switchDoor) : gameWorld(height, width, data) {
-    vectorCharacter.push_back(new Character('@'));
+    vectorCharacter.push_back(new Character('@', 10, 10));
 
     // Put the figur at the first floor in the map
     DungeonMap::Position searchFloorPosition = {.row=0,.column=0};
@@ -38,7 +38,7 @@ GameEngine::GameEngine(int height, int width, int numDependence, const std::vect
                 }
                 else if(switchDoor[i][j] == 'D'){
                     DungeonMap::Position tmpPosition{sdPosition[0]-1, sdPosition[1]-1};
-                    doorTile = new Door('X');
+                    doorTile = new Door('X', false);
                     gameWorld.setTile(tmpPosition, doorTile);
                     sdPositionIndex = 0;
                 }
@@ -63,12 +63,12 @@ void GameEngine::turn() {
 
     DungeonMap::Position currentPosition = gameWorld.findCharacter(vectorCharacter[0]);
     std::cout << "Current position: row " << currentPosition.row << " column " << currentPosition.column << std::endl;
+    gameWorld.print(currentPosition);
     int moveDirection = vectorCharacter[0]->move();
     DungeonMap::Position nextPosition = nextPlayerPosition(moveDirection, currentPosition);
     Tile* currentTile = gameWorld.findTile(currentPosition);
     Tile* nextTile = gameWorld.findTile(nextPosition);
     currentTile->onLeave(nextTile);
-    gameWorld.print();
 }
 
 DungeonMap::Position GameEngine::nextPlayerPosition(int direction, DungeonMap::Position currentPosition) {

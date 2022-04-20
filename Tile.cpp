@@ -35,5 +35,9 @@ Tile::Tile() {
 }
 
 Tile::~Tile() {
+    m_character = nullptr;
+}
 
+bool Tile::isTransparent() {
+    return true;
 }

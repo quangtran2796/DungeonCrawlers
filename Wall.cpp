@@ -16,3 +16,7 @@ void Wall::onEnter(Character *c, Tile *fromTile) {
 Wall::Wall(char symbol) {
     setDisplaySymbol(symbol);
 }
+
+bool Wall::isTransparent() {
+    return false;
+}

@@ -4,8 +4,9 @@
 
 #include "Door.h"
 
-Door::Door(char symbol) {
+Door::Door(char symbol, bool status) {
     setDisplaySymbol(symbol);
+    setStatus(status);
 }
 
 void Door::setStatus(const bool s) {
@@ -31,5 +32,12 @@ void Door::onEnter(Character *c, Tile *fromTile) {
         else
             fromTile->setCharacter(c);
     }
+}
+
+bool Door::isTransparent() {
+    if(getStatus())
+        return true;
+    else
+        return false;
 }
 

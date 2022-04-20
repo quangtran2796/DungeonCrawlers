@@ -8,12 +8,14 @@
 
 class Door : public Passive{
 public:
-    Door(char symbol);
+    Door(char symbol, bool status);
     ~Door(){};
     virtual void setStatus(const bool s);
     virtual bool getStatus();
     virtual void onLeave(Tile *toTile);
     virtual void onEnter(Character* c, Tile *fromTile);
+    virtual bool isTransparent();
+
 };
 
 #endif //DUNGEONCRAWLERS_DOOR_H

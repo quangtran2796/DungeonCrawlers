@@ -31,7 +31,8 @@ public:
     Tile* findTile(Position pos);
     Position findCharacter(Character *c);
     void setTile(Position pos, Tile* t);
-    void print();
+    bool hasLineOfSight(Position from, Position to);
+    void print(Position playerPos);
 };
 
 
