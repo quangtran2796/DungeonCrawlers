@@ -17,7 +17,7 @@ private:
     int m_hitpoints;
     std::vector<Item*> m_itemList;
 public:
-    Character(char c, int stamina, int strength);
+    Character(char c, int stamina, int strength, Controller* controller);
     ~Character();
     char getCharacter();
     int move();
@@ -29,6 +29,8 @@ public:
     int getStrength();
     int getStamina();
     void subtractHP(int amountHP);
+    Controller *getController();
+
 
 };
 

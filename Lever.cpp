@@ -42,6 +42,10 @@ void Lever::onEnter(Character *c, Tile *fromTile) {
     setCharacter(c);
 }
 
+Passive *Lever::getPassiveObject() {
+    return m_passiveObject;
+}
+
 
 
 

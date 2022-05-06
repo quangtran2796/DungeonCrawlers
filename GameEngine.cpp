@@ -6,11 +6,13 @@
 #include "DungeonMap.h"
 #include "Door.h"
 #include "Switch.h"
+#include "ConsoleController.h"
 #include <iostream>
+#include <fstream>
 
 GameEngine::GameEngine(int height, int width, int numDependence, const std::vector<std::string> &data, std::vector<std::string> &switchDoor) : gameWorld(height, width, data) {
-    vectorCharacter.push_back(new Character('@', 10, 10));
-
+    vectorCharacter.push_back(new Character('@', 10, 10, new ConsoleController()));
+    mapParser("level2.txt");
     // Put the figur at the first floor in the map
     DungeonMap::Position searchFloorPosition = {.row=0,.column=0};
     bool stopSearch = false;
@@ -62,6 +64,7 @@ void GameEngine::run() {
 void GameEngine::turn() {
 
     DungeonMap::Position currentPosition = gameWorld.findCharacter(vectorCharacter[0]);
+    vectorCharacter[0]->showInfo();
     std::cout << "Current position: row " << currentPosition.row << " column " << currentPosition.column << std::endl;
     gameWorld.print(currentPosition);
     int moveDirection = vectorCharacter[0]->move();
@@ -129,4 +132,14 @@ bool GameEngine::finished() {
     return false;
 }
 
-
+void GameEngine::mapParser(std::string levelPath){
+    std::string line;
+    std::ifstream myFile("level2.txt");
+    if(myFile.is_open()){
+        while(getline(myFile, line)){
+            std::cout << line << '\n';
+        }
+        myFile.close();
+    }
+    else std::cout << "Unable to open file!";
+}

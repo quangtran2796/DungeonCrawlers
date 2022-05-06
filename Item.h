@@ -7,8 +7,10 @@
 
 
 class Item {
+private:
 public:
     // Do we need constructor and destructor for abstract class
+    // Put constructor and destructor to private -> it will throw error -> How to solve??
     Item(){}
     ~Item(){}
     virtual int modifyStrength(int strength) = 0;

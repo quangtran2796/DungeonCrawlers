@@ -7,6 +7,7 @@
 
 #include "DungeonMap.h"
 #include <vector>
+#include <cstring>
 class GameEngine {
 private:
     DungeonMap gameWorld;
@@ -18,6 +19,7 @@ public:
     ~GameEngine();
 
     bool finished();
+    void mapParser(std::string levelPath);
     void turn();
     void run();
 };

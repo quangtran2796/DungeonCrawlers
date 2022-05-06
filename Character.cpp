@@ -11,13 +11,7 @@ char Character::getCharacter() {
 
 
 int Character::move() {
-    char direction;
-    std::cout << "Type your next move direction 1-9:";
-    std::cin >> direction;
-//    if(m_controller != nullptr)
-//        m_controller->move();
-
-    return direction - '0';
+    return getController()->move();
 }
 
 Character::~Character() {
@@ -28,11 +22,12 @@ int Character::getMaxHP() {
     return 20 + (getStamina()*5);
 }
 
-Character::Character(char c, int stamina, int strength) {
+Character::Character(char c, int stamina, int strength, Controller *controller) {
     m_character = c;
     m_stamina = stamina;
     m_strength = strength;
     m_hitpoints = getMaxHP();
+    m_controller = controller;
 }
 
 void Character::showInfo() {
@@ -73,4 +68,12 @@ void Character::subtractHP(int amountHP) {
 int Character::getHP() {
     return m_hitpoints;
 }
+
+Controller *Character::getController() {
+    return m_controller;
+}
+
+
+
+
 
